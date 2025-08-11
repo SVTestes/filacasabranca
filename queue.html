@@ -57,10 +57,17 @@
         }
 
         .queue-number {
-            font-size: 1.8em;
+            font-size: 3.6em;
             font-weight: 600;
             color: #632424;
             letter-spacing: -0.5px;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 40px 20px;
+            text-align: center;
+            width: 100%;
         }
 
         .refresh-button {
@@ -73,7 +80,6 @@
             font-family: 'Inter', sans-serif;
             font-size: 16px;
             font-weight: 500;
-            margin-top: 30px;
             transition: background-color 0.3s, transform 0.2s;
         }
 
@@ -94,6 +100,9 @@
             <span class="queue-text">Número de Pessoas na Fila:</span>
             <span class="queue-number" id="queueTotal">0</span>
         </div>
+    </div>
+
+    <div class="footer">
         <button class="refresh-button" onclick="updateQueue()">Atualizar</button>
     </div>
 
