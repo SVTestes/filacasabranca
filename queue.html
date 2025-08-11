@@ -43,39 +43,24 @@
             letter-spacing: -0.5px;
         }
 
-        .queue-container {
-            margin: 40px auto;
-            padding: 20px;
-            max-width: 800px;
-            width: 90%;
-            text-align: center;
-        }
-
         .queue-display {
-            background-color: #632424;
-            color: white;
-            padding: 30px 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(99, 36, 36, 0.2);
-            margin: 0 auto;
-            transition: transform 0.3s ease;
             display: inline-block;
-        }
-
-        .queue-display:hover {
-            transform: scale(1.02);
+            margin: 0;
         }
 
         .queue-text {
-            font-size: 24px;
-            font-weight: 400;
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #632424;
             margin-right: 10px;
+            letter-spacing: -0.5px;
         }
 
         .queue-number {
-            font-size: 48px;
+            font-size: 1.8em;
             font-weight: 600;
-            color: #ffd700;
+            color: #632424;
+            letter-spacing: -0.5px;
         }
 
         .refresh-button {
@@ -105,9 +90,6 @@
 <body>
     <div class="header">
         <div class="decorative-line"></div>
-        <h1>Restaurante Casa Branca</h1>
-    </div>
-    <div class="queue-container">
         <div class="queue-display">
             <span class="queue-text">Número de Pessoas na Fila:</span>
             <span class="queue-number" id="queueTotal">0</span>
