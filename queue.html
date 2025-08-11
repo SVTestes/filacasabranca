@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurante Casa Branca - Fila</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(99, 36, 36, 0.1);
+            width: 100%;
+        }
+        
+        .decorative-line {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #632424, transparent);
+            margin: 20px 0;
+            opacity: 0.3;
+        }
+        
+        h1 {
+            color: #632424;
+            margin: 20px 0;
+            font-size: 1.8em;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .queue-container {
+            margin: 40px auto;
+            padding: 20px;
+            max-width: 800px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .queue-display {
+            background-color: #632424;
+            color: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(99, 36, 36, 0.2);
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .queue-display:hover {
+            transform: scale(1.02);
+        }
+
+        .queue-text {
+            font-size: 24px;
+            font-weight: 400;
+            margin-right: 10px;
+        }
+
+        .queue-number {
+            font-size: 48px;
+            font-weight: 600;
+            color: #ffd700;
+        }
+
+        .refresh-button {
+            background-color: #632424;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 30px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .refresh-button:hover {
+            background-color: #7a2e2e;
+            transform: translateY(-2px);
+        }
+
+        .refresh-button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="decorative-line"></div>
+        <h1>Restaurante Casa Branca</h1>
+    </div>
+    <div class="queue-container">
+        <div class="queue-display">
+            <span class="queue-text">Número de Pessoas na Fila:</span>
+            <span class="queue-number" id="queueTotal">0</span>
+        </div>
+        <button class="refresh-button" onclick="updateQueue()">Atualizar</button>
+    </div>
+
+    <script>
+        // Server URL - Change this after deployment
+        const SERVER_URL = window.location.origin;
+        
+        async function updateQueue() {
+            try {
+                console.log('Fetching queue count...');
+                const response = await fetch(`${SERVER_URL}/api/queue-count`);
+                console.log('Response:', response);
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || `Failed to fetch queue count: ${response.status} ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                console.log('Received data:', data);
+
+                // Update the total count, ensuring 0 is displayed when count is 0, undefined, or null
+                const queueTotal = document.getElementById('queueTotal');
+                const count = data.count;
+                queueTotal.textContent = (count !== undefined && count !== null) ? count : '0';
+
+            } catch (error) {
+                console.error('Error updating queue:', error);
+                document.getElementById('queueTotal').textContent = '0';
+            }
+        }
+
+        // Update immediately when page loads
+        console.log('Page loaded, starting queue updates...');
+        updateQueue();
+
+        // Auto-refresh every 30 seconds
+        setInterval(updateQueue, 30000);
+    </script>
+</body>
+</html> 
