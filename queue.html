@@ -127,7 +127,9 @@
                 // Update the total count, ensuring 0 is displayed when count is 0, undefined, or null
                 const queueTotal = document.getElementById('queueTotal');
                 const count = data.count;
-                queueTotal.textContent = (count !== undefined && count !== null) ? count : '0';
+                // Subtract 1 from the Puppeteer count before displaying
+                const displayCount = (count !== undefined && count !== null) ? Math.max(0, count - 1) : 0;
+                queueTotal.textContent = displayCount;
 
             } catch (error) {
                 console.error('Error updating queue:', error);
